@@ -14,12 +14,11 @@ public class Simulatore {
 // 	Modello --> Stato del sistema ad ogni passo
 	private Graph<Country, DefaultEdge> grafo;
  
-//  Tipi di evento / coda prioritaria   (1 solo evento)
+//  Tipi di evento / coda prioritaria   
 	private PriorityQueue<Evento> queue;
  
 //  Parametri della simulazione
 	private int N_MIGRANTI = 1000;
-	private Country partenza;
 	
 //	Valori di output
 	private int T;
@@ -27,7 +26,6 @@ public class Simulatore {
 	
 	public void init(Country partenza, Graph<Country, DefaultEdge> grafo) {
 //		Ricevo i parametri
-		this.partenza = partenza;
 		this.grafo = grafo;
 
 //		Impostazione dello stato iniziale
@@ -58,7 +56,7 @@ public class Simulatore {
 			if (migranti > 0) {
 //				Le persone si possono muovere
 				for (Country confinante : confinanti)
-					queue.add(new Evento(evento.getT()+1, migranti, confinante));
+					queue.add(new Evento(T+1, migranti, confinante));
 			}
 			
 			int stanziali = nPersone - migranti*confinanti.size();
@@ -68,10 +66,6 @@ public class Simulatore {
 
 	public int getLastT() {
 		return T;
-	}
-	
-	public void name() {
-		
 	}
 
 	public Map<Country, Integer> getStanziali() {
